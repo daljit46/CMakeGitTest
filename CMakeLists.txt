@@ -20,15 +20,11 @@ add_custom_target(version_target ALL
     COMMENT "Generating version.cpp"
     VERBATIM
 )
+set(VERSION_CPP ${CMAKE_CURRENT_BINARY_DIR}/version.cpp)
+set_source_files_properties(${VERSION_CPP} PROPERTIES GENERATED TRUE)
 
-# Copy the generated version.cpp to the build directory if it does not exist
-# before building the target
-# TODO: Is there a better way to do this?
-if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/version.cpp)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/version.cpp.in ${CMAKE_CURRENT_BINARY_DIR}/version.cpp)
-endif()
-
-add_library(version_lib STATIC ${CMAKE_CURRENT_BINARY_DIR}/version.cpp)
+add_library(version_lib STATIC ${VERSION_CPP})
+add_dependencies(version_lib version_target)
 target_include_directories(version_lib PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(CMakeGit PRIVATE version_lib)
