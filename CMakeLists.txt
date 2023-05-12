@@ -23,6 +23,7 @@ add_custom_target(version_target ALL
 
 # Copy the generated version.cpp to the build directory if it does not exist
 # before building the target
+# TODO: Is there a better way to do this?
 if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/version.cpp)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/version.cpp.in ${CMAKE_CURRENT_BINARY_DIR}/version.cpp)
 endif()
