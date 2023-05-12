@@ -1,0 +1,6 @@
+#include "version.h"
+
+std::string version ()
+{
+    return "@MRTRIX_VERSION@";
+}
